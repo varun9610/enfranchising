@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ab" xml:lang="ab">
+<head>
+<script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Affordable and professional web design">
+<meta name="keywords" content="web design, affordable web design, professional web design">
+<meta name="author" content="Brad Traversy">
+<title>E-Franchise</title>
+<link rel="stylesheet" href="./css/c.css">
+<link rel="icon" href="img/favicon.png">
+</head>
+
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #45a29e;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  
+  .container {
+    padding: 16px;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+  
+  /* Global */
+  .container{
+    width:80%;
+    margin:auto;
+    overflow:hidden;
+  }
+  ul{
+    margin:0;
+    padding:0;
+  }
+  .button_1{
+    height:38px;
+    background: #b80017;
+    border:0;
+    padding-left: 20px;
+    padding-right:20px;
+    color:#ffffff;
+  }
+  .dark{
+    padding:15px;
+    background:#3e1c00;;
+    color:#ffffff;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+  /* Header **/
+  header{
+    background-color: #0b0c10;
+    color:#ffffff;
+    padding-top:30px;
+    min-height:70px;
+    border-bottom:#0b0c10 3px solid;
+  }
+  header a{
+    color:#ffffff;
+    text-decoration:none;
+    text-transform: uppercase;
+    font-size:16px;
+  }
+  header li{
+    float:left;
+    display:inline;
+    padding: 0 20px 0 20px;
+  }
+  header #branding{
+    float:left;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: #3e1c00;; */
+  }
+  header #branding h1
+  {
+    margin:0;
+  }
+  header nav{
+    float:right;
+    margin-top:10px;
+  }
+  header .highlight, header .current a
+  {
+    color:#66fcf1;
+    font-weight:bold;
+    font-size: 70px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif;
+  }
+  header a:hover{
+    color:#cccccc;
+    font-weight:bold;
+  }
+  #heading-text{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif;
+  }
+  #offer-heading{
+    font-weight:bold;
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif;
+  }
+  #offer-text{
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Arial, sans-serif;
+  }
+  /* Showcase */
+  #showcase{
+    min-height:400px;
+    /* background:url('./Images/LOGO.png') no-repeat; */
+    background-position: center;
+    background-size: cover;
+    background-color:#0b0c10;
+  }
+  #showcase h1{
+    margin-top:100px;
+    font-size:55px;
+    margin-bottom:10px;
+    color:#ffffff;
+    text-align:left;
+  }
+  #showcase p{
+    font-size:20px;
+  }
+  /* Newsletter */
+  #newsletter{
+    padding:15px;
+    color:#ffffff;
+    background:#000;
+  }
+  #newsletter h1{
+    float:left;
+  }
+  #newsletter form {
+    float:right;
+    margin-top:15px;
+  }
+  #newsletter input[type="email"]{
+    padding:4px;
+    height:25px;
+    width:250px;
+  }
+  /* Boxes */
+  #boxes{
+    margin-top:20px;
+  }
+  #boxes .box{
+    float:left;
+    text-align: center;
+    width:30%;
+    padding:10px;
+  }
+  #boxes .box img{
+    width:90px;
+  }
+  /* payment button box */
+  #boxes .box2{
+    margin: auto;
+    text-align: center;
+    width:20%;
+    padding:40px;
+  }
+  /* Sidebar */
+  aside#sidebar{
+    float:right;
+    width:30%;
+    margin-top:10px;
+  }
+  aside#sidebar .quote input, aside#sidebar .quote textarea{
+    width:90%;
+    padding:5px;
+  }
+  /* Main-col */
+  article#main-col{
+    float:left;
+    width:65%;
+  }
+  /* Services */
+  ul#services li{
+    list-style: none;
+    padding:20px;
+    border: #cccccc solid 1px;
+    margin-bottom:5px;
+    background:#e6e6e6;
+  }
+  footer{
+    padding:20px;
+    margin-top:20px;
+    color:#ffffff;
+    background-color:#000;
+    text-align: center;
+  }
+  
+  .loginButton {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align :center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  /* Media Queries */
+  @media(max-width: 768px){
+    header #branding,
+    header nav,
+    header nav li,
+    #newsletter h1,
+    #newsletter form,
+    #boxes .box,
+    article#main-col,
+    aside#sidebar{
+      float:none;
+      text-align:center;
+      width:100%;
+    }
+    header{
+      padding-bottom:20px;
+    }
+    #showcase h1{
+      margin-top:40px;
+    }
+    #newsletter button, .quote button{
+      display:block;
+      width:100%;
+    }
+    #newsletter form input[type="email"], .quote input, .quote textarea{
+      width:100%;
+      margin-bottom:5px;
+    }
+  
+    body {font-family: Arial, Helvetica, sans-serif;}
+  
+  }
+  #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+  }
+  </style>
+
+
+<body >
+<main>
+  <header>
+    <div class="container" style="justify-content: space-between;">
+      <div id="branding" style="flex-direction: row;;">
+        <h1><span class="highlight">Invest</span></h1>
+        <a style="padding-top: 5px;margin-left: 850px;" href="Home.html">Home</a>
+        <img src="./Images/home.png" style="width: 50px;height: 50px;align-self: center;"></img>
+      </div>
+      <!-- <a style="float: right;align-self: center;" href="./Home.html"> 
+        <img src="./Images/home.png" style="width: 30px;height: 30px;align-self: center;"></img>
+      </a> -->
+      <!-- <div id="branding" style="align-self: flex-end;">
+        <h1><span class="highlight">Discover</span></h1>
+      </div> -->
+    </div>
+    </header>
+    <section id="showcase">
+    <div class="container">
+      <p id="heading-text" style="color: #ffffff;text-align: left;margin-top: 40px;font-size: 27px;">
+        In the Franchises Hub, you can gather information <br>
+        about each franchise using the franchise details page <br>
+        to view a list of franchise opportunities, documentation,<br>
+         and guidelines to help you implement the franchise model <br>
+          into your business. Invest in franchise plans to start your <br>
+          entrepreneurial journey, and manage all your investments<br> and payments through the Franchises Hub.
+      </p>
+    </div>
+   
+    </section>
+    
+    <section id="boxes">
+    <div class="container">
+      <!-- <h2>FAV E-Franchise TASTE</h2> -->
+      <div class="box">
+        <img src="./Images/Subway-Logo.png" style="height: 9%;width: 150px;">
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.7122048815954!2d121.04714717506299!3d14.615463576712694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7c41a1d247f%3A0x457738e67135b03b!2sMr.%20Laba-Luvah%20Good%20Laundry%20Care%20Shop!5e0!3m2!1sen!2sca!4v1689304129581!5m2!1sen!2sca" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        <button class="button_1">AVAILABLE</button> 
+      </div>
+      <div class="box">
+        <img src="./Images/Laba.png" style="height: 19%;width: 150px;margin-top: 35px;">
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.7122048815954!2d121.04714717506299!3d14.615463576712694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7c41a1d247f%3A0x457738e67135b03b!2sMr.%20Laba-Luvah%20Good%20Laundry%20Care%20Shop!5e0!3m2!1sen!2sca!4v1689304129581!5m2!1sen!2sca" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        <button class="button_1">COMING SOON</button> 
+      </div>
+      <div class="box">
+        <img src="./Images/mcd.png">
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.7122048815954!2d121.04714717506299!3d14.615463576712694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7c41a1d247f%3A0x457738e67135b03b!2sMr.%20Laba-Luvah%20Good%20Laundry%20Care%20Shop!5e0!3m2!1sen!2sca!4v1689304129581!5m2!1sen!2sca" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        <button class="button_1" style="margin-top: 5px;">SOLD OUT</button> 
+      </div>
+    </div>
+    <div class="container">
+      <h2 id="offer-heading">
+        Hurry up! Book your slot through Franchises Hub at just $50.
+      </h2>
+      <p id="offer-text">Zero-cancellation fees in case of refund.</p>
+    </div>
+    <div class="container">
+      <div class="box2">
+      <a href=https://buy.stripe.com/test_bIY7tC0VJddLeqIfYY>
+        <button class="paystand-button ">Reserve Slot</button>
+      </a>
+    </div>
+    </div>
+    </section>
+</main>
+  
+<footer style="background-color: black;position: relative;bottom: 0;">
+<p>
+	E-Franchise, Copyright & copy; 2023
+</p>
+</footer>
+</body>
+</html>
